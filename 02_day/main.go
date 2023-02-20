@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -74,8 +75,33 @@ func FileCopy() {
 
 }
 
+// 解析命令行参数
+func parseCommandLineParams() {
+	paramLen := len(os.Args)
+	fmt.Println(paramLen)
+	for i, v := range os.Args {
+		fmt.Printf("args[%v]=%v \n", i, v)
+	}
+}
+
+func parseCommandLineParams2() {
+	var (
+		user string
+		pwd  string
+		host string
+		port string
+	)
+	flag.StringVar(&user, "u", "", "用户名，默认为空")
+	flag.StringVar(&pwd, "pwd", "", "密码，　默认为空")
+	flag.StringVar(&host, "h", "localhost", "主机名，默认为空")
+	flag.StringVar(&port, "port", "3306", "端口号，　默认为空")
+	flag.Parse()
+	fmt.Printf("user=%v pwd=%v host=%v port=%v \n", user, pwd, host, port)
+}
+
 func main() {
 	// ClearAndWrite()
 	//CopyFileToNewFile()
 	//JudgePathIsExists()
+	parseCommandLineParams2()
 }
